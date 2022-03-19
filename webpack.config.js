@@ -18,7 +18,32 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'K.T.A.T.E'
+      }),
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js',
+      }),
+      new WebPackPwaManifest({
+        fingerprints: false, 
+        inject: true, 
+        name: "Kendall's Totally Awesome Text Editor",
+        short_name: 'K.T.A.T.E',
+        description: 'Takes notes with Javascript syntax highlighting!',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
+        start_url: '/', 
+        publicPath: '/',
+        icons: [
+          {
+          src: path.resolve('src/images/logo.png'),
+          sizes: [96,128,192,256,384,512],
+          destination: path.join('assets','icons'),
+          },
+        ],
+      }),
     ],
 
     module: {
